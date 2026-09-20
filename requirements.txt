@@ -1,0 +1,30 @@
+# ---------------------------------------------------------------------------
+# IMPRS Workshop: Building Multi-Agent Systems with LangChain & LangGraph
+# ---------------------------------------------------------------------------
+# Core LangChain / LangGraph stack
+langchain>=1.2,<2
+langchain-core>=1.2,<2
+langchain-community>=0.4,<1
+langchain-text-splitters>=1.1,<2
+langgraph>=1.0,<2
+
+# Model backends
+langchain-ollama>=1.0,<2        # local models served by Ollama
+langchain-openai>=1.0,<2        # any OpenAI-compatible endpoint (LiteLLM proxy)
+
+# Data / maths / plotting for the embedding demos
+numpy>=1.26
+pandas>=2.0
+scikit-learn>=1.4               # cosine_similarity, PCA
+umap-learn>=0.5                 # UMAP projection
+matplotlib>=3.8
+seaborn>=0.13
+
+# Notebook + config
+jupyterlab>=4.0
+ipykernel>=6.29
+ipywidgets>=8.1
+python-dotenv>=1.0
+pydantic>=2.7
+grandalf>=0.8                    # ASCII rendering of LangGraph graphs
+jupytext>=1.16                  # keeps notebook.ipynb and script.py in sync
