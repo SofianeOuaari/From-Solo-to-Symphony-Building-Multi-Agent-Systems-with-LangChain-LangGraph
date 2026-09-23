@@ -91,7 +91,7 @@ ollama pull all-minilm:33m            # embeddings comparison, notebook 03
 ```
 
 ≈ 5 GB in total. **Start this download the day before.** Smaller substitutes are
-fine (`qwen3.5:0.8b`) — change the name in `.env` and every
+fine (`qwen3.5:0.8b`) change the name in `.env` and every
 notebook follows.
 
 **LiteLLM proxy** (a shared server, bigger models, needs a key): put the base
@@ -147,52 +147,6 @@ from common.workshop_setup import get_chat_model
 `05_rag_basics/knowledge_base.md` is the handbook of a **completely fictional**
 institute. That is deliberate: no model has memorised it, so retrieval either
 works or visibly doesn't. Notebooks 05, 07, 09 and 10 all use it.
-
----
-
-## Suggested timing (a full day, ~6 h with breaks)
-
-| Block | Notebooks | Time |
-|-------|-----------|------|
-| Foundations | 01, 02 | 45 min |
-| Meaning as geometry | 03, 04 | 75 min |
-| Knowledge | 05 | 45 min |
-| *break* | | |
-| Making models programmable | 06, 07 | 75 min |
-| Orchestration | 08 | 60 min |
-| **Multi-agent** | 09, 10 | 90 min |
-
-For a **half-day** version: 01 (demo only), 02, 03, 05, 07, 08, 09.
-For a **2-hour** version: 02, 07, 08, 09 — and show 10 as a live demo.
-
----
-
-## Troubleshooting
-
-| Symptom | Cause | Fix |
-|---------|-------|-----|
-| `ModuleNotFoundError` | wrong kernel | select `imprs_workshop`, top right |
-| empty / blank model reply | thinking tokens ate the budget | raise `max_tokens`, or `thinking=False` |
-| `Connection refused` on :11434 | Ollama not running | `ollama serve` |
-| `key not allowed to access model` | key scoped to other models | notebook 01 lists what your key *can* use |
-| `OutputParserException` | small model broke the schema | describe constraints in `Field(description=...)`, or `.with_retry()` |
-| notebook 06's benchmark takes minutes | reasoning models are slow, that is the lesson | lower `max_tokens`, or drop tasks from `TASKS` |
-| `GraphRecursionError` | a cycle with no exit | check your `should_continue`; raise `recursion_limit` only after |
-| retrieval finds nothing useful | chunking | look at your chunks, then tune `chunk_size` |
-| agent ignores your tool | the docstring never said *when* to use it | rewrite the docstring as an instruction |
-
-## A note for whoever teaches this
-
-Three things are worth insisting on, because they are what participants get
-wrong for months afterwards:
-
-1. **The model requests a tool; your code executes it.** Notebook 07, section 2.
-2. **An agent is a `while` loop with a step budget.** Notebook 07, section 3.
-3. **Multi-agent is a cost, not a goal.** Notebook 09 opens with the argument
-   for staying with one agent. Make them justify every split.
-
-Notebooks 03, 05, 06 and 09 each contain a cell that *fails on purpose*. Don't
-fix them — they are the most useful cells in the workshop.
 
 ---
 
