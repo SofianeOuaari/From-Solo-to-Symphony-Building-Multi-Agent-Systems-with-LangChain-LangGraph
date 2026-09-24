@@ -1,11 +1,12 @@
-# Building Multi-Agent LLM Systems
+# From Solo to Symphony: Building Multi-Agent Systems with LangChain & LangGraph
+
 
 ### A hands-on workshop with LangChain & LangGraph · IMPRS
 
 This hands-on workshop explores how to design and build **multi-agent
 collaboration systems**, where multiple LLM-powered agents work together to
-tackle tasks. We cover the core concepts behind agentic systems — roles, tools,
-memory, knowledge bases — and the orchestration patterns that govern how agents
+tackle tasks. We cover the core concepts behind agentic systems  roles, tools,
+memory, knowledge bases  and the orchestration patterns that govern how agents
 communicate.
 
 The workshop is a **crescendo**. Notebook 01 checks your Python install;
@@ -23,7 +24,7 @@ abstraction is written out by hand *before* the library version is shown.
 | 02 | [02_first_llm_call/](02_first_llm_call/) | your first calls and chains | a model is a function; messages, temperature, streaming, LCEL |
 | 03 | [03_embeddings_and_similarity/](03_embeddings_and_similarity/) | cosine similarity from scratch | text → vectors; **three** embedding models compared |
 | 04 | [04_semantic_map_pca_umap/](04_semantic_map_pca_umap/) | a semantic map of generated documents | LLM-synthesised corpora, PCA vs. UMAP, and how to not fool yourself |
-| 05 | [05_rag_basics/](05_rag_basics/) | RAG, including a 15-line vector store | chunking, retrieval, grounding — and the three ways it fails |
+| 05 | [05_rag_basics/](05_rag_basics/) | RAG, including a 15-line vector store | chunking, retrieval, grounding  and the three ways it fails |
 | 06 | [06_structured_output_and_reasoning/](06_structured_output_and_reasoning/) | typed outputs and a reasoning benchmark | Pydantic schemas = decisions a program can act on |
 | 07 | [07_tools_and_first_agent/](07_tools_and_first_agent/) | the agent loop, written by hand | tools; *the model requests, you execute* |
 | 08 | [08_langgraph_fundamentals/](08_langgraph_fundamentals/) | state machines with cycles and memory | `StateGraph`, reducers, checkpointers, `interrupt()` |
@@ -32,9 +33,9 @@ abstraction is written out by hand *before* the library version is shown.
 
 Every folder contains:
 
-* `notebook.ipynb` — for the workshop
-* `script.py` — **identical content**, runnable with `python script.py`
-* `README.md` — a one-page summary and the exercises
+* `notebook.ipynb`  for the workshop
+* `script.py`  **identical content**, runnable with `python script.py`
+* `README.md`  a one-page summary and the exercises
 
 > `script.py` is the source of truth. The two are kept in sync with
 > [jupytext](https://jupytext.readthedocs.io/): `jupytext --to notebook script.py`
@@ -43,7 +44,7 @@ Every folder contains:
 
 ## Setup (do this before the workshop)
 
-### 1 · Python environment — pick **one**
+### 1 · Python environment  pick **one**
 
 **conda**
 
@@ -75,7 +76,7 @@ cp .env.example .env     # then edit it
 
 ### 3 · Models
 
-You need **either** Ollama **or** the LiteLLM proxy. Both is better — notebook
+You need **either** Ollama **or** the LiteLLM proxy. Both is better  notebook
 02 compares them side by side.
 
 **Ollama** (local, free, private, offline):
@@ -96,7 +97,7 @@ notebook follows.
 
 **LiteLLM proxy** (a shared server, bigger models, needs a key): put the base
 URL and key in `.env`. Notebook 01 prints exactly which models *your* key may
-use — don't assume, the proxy will tell you.
+use  don't assume, the proxy will tell you.
 
 Switch between them with one line in `.env`:
 
@@ -148,28 +149,6 @@ from common.workshop_setup import get_chat_model
 institute. That is deliberate: no model has memorised it, so retrieval either
 works or visibly doesn't. Notebooks 05, 07, 09 and 10 all use it.
 
----
-
-## Known behaviour on a small local model
-
-Everything here was run end to end against `qwen3.5:2b` on a laptop. Some cells
-*misbehave in instructive ways*, and the notebooks say so where it happens:
-
-| Where | What you will see | Why it is in the workshop |
-|-------|-------------------|---------------------------|
-| 03 | "won the final" ≈ "lost the final" | embeddings do not encode negation |
-| 04 | PCA shows 2 clusters, UMAP shows 6 | projections are not evidence |
-| 05 | confident scores for unanswerable questions | retrievers always return *something* |
-| 06 | `confidence: 95` rejected by Pydantic | validation catching a real error |
-| 06 | wrong answers in the reasoning benchmark | a 2B model needs tools, not thinking |
-| 07 | the vague-docstring tool is never called | the docstring *is* the prompt |
-| 07 | tool returns 21495, model says "€86" | tool use ≠ correct reporting |
-| 08 | the stats question routes to `technical` | a router caps everything downstream |
-| 09 | the network pattern hits its hop limit | why supervisors are the default |
-| 10 | the critic approves a self-contradiction | a critic raises the floor, not a guarantee |
-
-Switching `WORKSHOP_BACKEND=litellm` fixes most of them — which is itself the
-most memorable lesson of the day about model size.
 
 ## Regenerating the notebooks
 
